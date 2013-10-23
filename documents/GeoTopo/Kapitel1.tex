@@ -1,6 +1,21 @@
 \chapter{Topologische Grundbegriffe}
+\section{Vorgeplänkel}
+    \begin{tabular}{lllll}
+    Die Kugeloberfläche $S^2$: &  lässt sich zu:          & oder:& verformen: \\
+    \input{figures/s2.tex}     & \input{figures/cube.tex} & TODO & \input{figures/pyramid.tex}
+    \end{tabular}
+
+    aber nicht zum $\mdr^2$ oder zu einem Torus:
+
+    \input{figures/torus.tex}
+    %\begin{figure}[h]
+    %    \centering
+    %    \includegraphics*[width=5cm, keepaspectratio]{figures/Torus.png}
+    %    %\caption[Torus]{\href{https://commons.wikimedia.org/wiki/File:Torus.png}{Wikipedia Commons}: LucasVB; \emph{\enquote{Torus}}; 01.10.2006} 
+    %\end{figure}
+
 \section{Topologische Räume}
-\begin{definition} \index{Topologischer Raum} \index{offen} \index{abgeschlossen}
+\begin{definition} \xindex{Topologischer Raum} \xindex{offen} \xindex{abgeschlossen}
     Ein \textbf{topologischer Raum} ist ein Paar $(X, \fT)$ bestehend
     aus einer Menge $X$ und $\fT \subseteq \powerset{X}$ mit
     folgenden Eigenschaften
@@ -12,29 +27,30 @@
     \end{enumerate}
     Die Elemente von $\fT$ heißen \textbf{offene Teilmengen} von $X$. 
 
-    $A \setminus X$ heißt \textbf{abgeschlossen}, wenn $X \setminus A$ offen ist.
+    $A \subseteq X$ heißt \textbf{abgeschlossen}, wenn $X \setminus A$ offen ist.
 
 \end{definition}
 
-Es gibt auch Mengen, die weder abgeschlossen, noch offen sind.
+Es gibt auch Mengen, die weder abgeschlossen, noch offen sind wie z.~B. $[0,1)$.
 
-\begin{beispieleX}
+\begin{beispiel}
     \begin{enumerate}[1)]
-        \item $X = \mdr^n$ mit der euklidischen Metrik.\\
+        \item $X = \mdr^n$ mit der euklidischen Metrik.\\ \xindex{Topologie!euklidische}
               $U \subseteq \mdr^n$ offen $\gdw$ für jedes $x \in U$ 
-              gibt es $r > 0$, sodass $B_r(x) = \Set{y \in \mdr^n | d(x,y) < r} \subseteq U$
+              gibt es $r > 0$, sodass $B_r(x) = \Set{y \in \mdr^n | d(x,y) < r} \subseteq U$\\
+              Also: $\fT = \Set{M \subseteq X | M \text{ ist offene Kugel}}$
         \item Allgemeiner: $(X, d)$ metrischer Raum
-        \item $X$ Menge, $\fT = \Set{\emptyset, X}$ heißt \enquote{triviale Topologie} \index{Topologie!triviale}
-        \item $X$ Menge, $\fT = \powerset{X}$ heißt \enquote{diskrete Topologie} \index{Topologie!diskrete}
-        \item $X :=\mdr, \fT_Z := \Set{U \subseteq \mdr | \mdr \setminus U \text{ endlich}} \cup \Set{\emptyset}$ heißt \enquote{Zariski-Topologie} \index{Topologie!Zariski}\\
+        \item $X$ Menge, $\fT = \Set{\emptyset, X}$ heißt \enquote{triviale Topologie} \xindex{Topologie!triviale}
+        \item $X$ Menge, $\fT = \powerset{X}$ heißt \enquote{diskrete Topologie} \xindex{Topologie!diskrete}
+        \item $X :=\mdr, \fT_Z := \Set{U \subseteq \mdr | \mdr \setminus U \text{ endlich}} \cup \Set{\emptyset}$ heißt \enquote{Zariski-Topologie} \xindex{Topologie!Zariski}\\
               Beobachtung: $U \in \fT_Z \gdw \exists f \in \mdr[X]$, sodass $\mdr \setminus U = V(f) = \Set{x \in \mdr | f(x) = 0}$
         \item $X := \mdr^n, \fT_Z = \{U \subseteq \mdr^n | \text{Es gibt Polynome } f_1, \dots, f_r \in \mdr[X_1, \dots, X_n] \text{ sodass }\\\mdr^n \setminus U = V(f_1, \dots, f_r)\}$
         \item $X = \Set{0,1}, \fT = \Set{\emptyset, \Set{0,1}, \Set{0}}$\\
               abgeschlossene Mengen: $\emptyset, \Set{0,1}, \Set{1}$
     \end{enumerate}
-\end{beispieleX}
+\end{beispiel}
 
-\begin{definition} \index{Umgebung}
+\begin{definition} \xindex{Umgebung}
     Sei $(X, \fT)$ ein topologischer Raum, $x \in X$.
 
     Eine Teilmenge $U \subseteq X$ heißt \textbf{Umgebung} von $x$,
@@ -44,28 +60,50 @@ Es gibt auch Mengen, die weder abgeschlossen, noch offen sind.
 \begin{definition}
     Sei $(X, \fT)$ ein topologischer Raum, $M \subseteq X$ eine Teilmenge.
     \begin{enumerate}[a)]
-        \item $\displaystyle M^\circ := \Set{x \in M | M \text{ ist Umgebung von } x} = \bigcup_{\stackrel{U \subseteq M} {U \in \fT}} U $ heißt \textbf{Inneres} oder \textbf{ offener Kern} von $M$. \index{Inneres} \index{Kern!offener}
-        \item $\displaystyle \overline{M} := \bigcap_{\stackrel{M \subseteq A}{A \text{ abgeschlossen}}} A$ heißt \textbf{abgeschlossene Hülle} oder \textbf{Abschluss} von $M$. \index{Abschluss}
-        \item $\partial M := \overline{M} \setminus M^\circ$ heißt \textbf{Rand} von $M$. \index{Rand}
-        \item $M$ heißt \textbf{dicht} in $X$, wenn $\overline{M} = X$ ist. \index{dicht}
+        \item $\displaystyle M^\circ := \Set{x \in M | M \text{ ist Umgebung von } x} = \bigcup_{\stackrel{U \subseteq M} {U \in \fT}} U $ heißt \textbf{Inneres} oder \textbf{ offener Kern} von $M$. \xindex{Inneres} \xindex{Kern!offener}
+        \item $\displaystyle \overline{M} := \bigcap_{\stackrel{M \subseteq A}{A \text{ abgeschlossen}}} A$ heißt \textbf{abgeschlossene Hülle} oder \textbf{Abschluss} von $M$. \xindex{Abschluss}
+        \item $\partial M := \overline{M} \setminus M^\circ$ heißt \textbf{Rand} von $M$. \xindex{Rand}
+        \item $M$ heißt \textbf{dicht} in $X$, wenn $\overline{M} = X$ ist. \xindex{dicht}
     \end{enumerate}
 \end{definition}
 
-\begin{beispieleX}
+\begin{beispiel}
     \begin{enumerate}[1)]
-        \item $X = \mdr$ mit euklidischer Topologie, $M = Q$. \\
-              $M^\circ = \emptyset, \overline{M} = \mdr$
-        \item $X = \mdr$, \dots\\
-              $M = (a, b) \Rightarrow \overline{M} = [a, b]$
-        \item $X = \mdr, \fT = \fT_Z$ \\
-              $M = (a, b) \Rightarrow \overline{M} = \mdr$
+        \item $X = \mdr$ mit euklidischer Topologie\\
+              $M = \mdq \Rightarrow \overline{M} = \mdr, \;\;\; M^\circ = \emptyset$
+        \item $X = \mdr$, $M=(a,b) \Rightarrow \overline{M} = [a,b]$
+        \item $X = \mdr, \fT = \fT_Z$\\
+              $M = (a,b) \Rightarrow \overline{M} = \mdr$
     \end{enumerate}
-\end{beispieleX}
+\end{beispiel}
 
-\begin{definition} \index{Topologie!Spur-} \index{Teilraum}
-    Sei $(X, \fT)$ ein topologischer Raum, $Y \subseteq X$.
+\begin{definition} \xindex{Basis} \xindex{Subbasis}
+    Sei $(X, \fT)$ ein topologischer Raum.
+    \begin{enumerate}[a)]
+        \item $\fB \subseteq \fT$ heißt \textbf{Basis} der Topologie $\fT$,
+              wenn jedes $U \in \fT$ Vereinigung von Elementen aus $\fB$
+              ist.
+        \item $\fB \subseteq \fT$ heißt \textbf{Subbasis}, wenn jedes
+              $U \in \fT$ Vereinigung von endlich vielen Durchschnitten
+              von Elementen aus $\fB$ ist.
+    \end{enumerate}
+\end{definition}
 
-    $\fT_Y = \Set{U \cap Y | U \in \fT}$ ist Topologie auf $Y$.
-    $\fT_Y$ heißt \textbf{Spurtopologie}.
-    $(Y, \fT_Y)$ heißt \textbf{Teilraum} von $(X, \fT)$.
+\begin{beispiel}
+    Gegeben sei $X = \mdr^n$ mit euklidischer Topologie $\fT$. Dann ist
+    \[\fB = \Set{B_r(x) | r \in \mdq_{> 0}, x \in \mdq^n}\]
+    ist eine abzählbare Basis von $\fT$.
+\end{beispiel}
+
+\begin{bemerkung}
+    Sei $X$ eine Menge und $\fB \subseteq \powerset{X}$. Dann gibt es
+    genau eine Topologie $\fT$ auf $X$, für die $\fB$ Subbasis ist.
+\end{bemerkung}
+
+\begin{definition} \xindex{Spurtopologie} \xindex{Teilraum}
+    Sei $(X, \fT)$ ein topologischer Raum, $Y \subseteq X$.\\
+    $\fT_Y := \Set{U \cap Y | U \in \fT}$ ist eine Topologie auf $Y$.
+
+    $\fT_Y$ heißt \textbf{Spurtopologie} und $(Y, \fT_Y)$ heißt ein 
+    \textbf{Teilraum} von $(X, \fT)$
 \end{definition}
